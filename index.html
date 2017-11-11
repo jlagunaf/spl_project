@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <link rel="stylesheet" href="jquery-ui/jquery-ui.min.css">
+    <script src="jquery/jquery-3.2.1.min.js"></script>
+    <script src="jquery-ui/jquery-ui.min.js"></script>
+
+    <!-- Include one of jTable styles. -->
+    <link href="jtable/themes/metro/blue/jtable.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- Include jTable script file. -->
+    <script src="jtable/jquery.jtable.min.js" type="text/javascript"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $('#MyTableContainer').jtable({
+                title: 'Seattle Library Check Outs Information',
+                paging: true, //Enable paging
+                pageSize: 10, //Set page size (default: 10)
+                sorting: false, //Enable sorting
+
+                actions: {
+                    listAction: 'http://localhost:8081/sl'
+                },
+                fields: {
+                    id:{
+                        
+                        title: 'id'
+
+                    },
+                    itemtitle: {
+                        title: 'itemtitle'
+                    }
+                    ,
+                    checkoutyear: {
+                        title: 'checkoutyear'
+                    },
+                    checkoutdatetime: {
+                        title: 'checkoutdatetime'
+                    },
+                    collection: {
+                        title: 'collection'
+                    },
+                    itemtype: {
+                        title: 'itemtype'
+                    },
+                    itembarcode: {
+                        title: 'itembarcode'
+                    },
+                    dayOfWeek: {
+                        title: 'dayOfWeek'
+                    },
+                    weekInYear: {
+                        title: 'weekInYear'
+                    },
+                    month: {
+                        title: 'month'
+                    },
+                    epochTime: {
+                        title: 'epochTime'
+                    }
+                }
+            });
+
+            $('#search').click(function () {
+                //Load student list from server
+                $('#MyTableContainer').jtable('load');
+            });
+
+
+        });
+    </script>
+
+</head>
+
+<body>
+    <button id="search">Search</button>
+    <div id="MyTableContainer"></div>
+</body>
+
+
+
+
+
+</html>

@@ -1,0 +1,15 @@
+{
+  "name": "seattle_library",
+  "version": "1.0.0",
+  "description": "SeattleLibrary queries",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jonathan",
+  "license": "MIT",
+  "dependencies": {
+    "current-week-number": "^1.0.7",
+    "json2csv": "^3.11.5"
+  }
+}
