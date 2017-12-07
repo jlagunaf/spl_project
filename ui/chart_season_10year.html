@@ -1,0 +1,98 @@
+<html>
+
+<head>
+    <script type="text/javascript">
+        google.charts.load('current', { 'packages': ['corechart'] });
+
+        var array = [
+            ['Year', 'Spring', 'Summer', 'Fall', 'Winter'],
+            ['2007', 896731, 958107, 928301, 929485],
+            ['2008', 953368, 1098665, 1057746, 1041109],
+            ['2009', 1119064, 1184942, 1013644, 1021417],
+            ['2010', 1072707, 1114206, 979727, 1009343],
+            ['2011', 1024364, 1114230, 930143, 884835],
+            ['2012', 981114, 1062675, 1009005, 1035728],
+            ['2013', 1072532, 1175317, 1085698, 1001414],
+            ['2014', 1048799, 1085942, 1014552, 954643],
+            ['2015', 1002733, 1008663, 1006123, 938652],
+            ['2016', 953856, 980229, 919197, 893792],
+            ['2017', 944532, 1038497, 965159, null]
+        ];
+
+        function drawChart(typeOfChart) {
+            var data = google.visualization.arrayToDataTable(array);
+
+            var options = {
+                title: 'Number of Checkouts per Season for 10 years',
+                legend: { position: 'top', },
+                crosshair: { trigger: 'both' },
+                animation: {
+                    startup: true,
+                    duration: 1500,
+                    easing: 'out',
+                },
+                hAxis: {
+                    slantedText: true,
+                    slantedTextAngle: 60,
+                    textStyle: {
+                        fontSize: 10 // or the number you want
+                    }
+                },
+                vAxis: {
+                    textStyle: {
+                        fontSize: 10 // or the number you want
+                    }
+                },
+                width: 900,
+                height: 450,
+                chartArea: {
+                    // leave room for y-axis labels
+                    width: '80%'
+                }
+            };
+
+            switch (typeOfChart) {
+                case "Bar":
+                    chart = new google.visualization.BarChart(document.getElementById('curve_chart'));
+                    break;
+                case "Line":
+                    chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+                    break;
+                default:
+                    chart = new google.visualization.ColumnChart(document.getElementById('curve_chart'));
+
+            }
+
+            chart.draw(data, options);
+        }
+
+        $("#typeofchart").selectmenu();
+
+        $("#typeofchart").on("selectmenuselect", function (event, ui) {
+            drawChart(ui.item.value);
+        });
+
+        //By default 'Line'
+        drawChart("Line");
+    </script>
+    <style>
+        label {
+            font-family: sans-serif;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <br>
+    <label for="typeofchart">Select type of chart</label>
+    <select name="typeofchart" id="typeofchart">
+            <option>Bar</option>
+            <option>Column</option>
+            <option selected>Line</option>
+        </select>
+    <br><br>
+    <div id="curve_chart" style="width: 900px; height: 450px"></div>
+</body>
+
+</html>

@@ -1,0 +1,100 @@
+<html>
+
+<head>
+    <script type="text/javascript">
+        google.charts.load('current', { 'packages': ['corechart'] });
+
+        var array = [
+            ['year', 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+            ['2007', 294166, 273075, 308111, 292899, 295721, 315847, 318036, 324224, 298025, 320304, 309972, 274179],
+            ['2008', 341559, 313747, 289487, 338702, 325179, 353583, 385262, 359820, 350203, 351231, 356312, 305958],
+            ['2009', 385566, 349585, 395793, 367085, 356186, 387045, 400407, 397490, 288711, 374218, 350719, 323127],
+            ['2010', 370439, 327847, 376936, 350077, 345694, 376721, 373516, 363969, 294002, 353042, 332683, 320976],
+            ['2011', 356691, 331676, 332980, 353201, 338183, 380082, 375859, 358289, 284448, 333975, 311720, 295185],
+            ['2012', 290733, 298917, 333086, 320010, 328018, 361956, 386349, 314370, 298742, 364624, 345639, 314308],
+            ['2013', 379984, 341436, 371844, 355593, 345095, 389107, 399869, 386341, 363621, 364437, 357640, 314639],
+            ['2014', 367174, 319643, 375521, 336589, 336672, 357650, 370883, 357390, 332770, 345405, 336426, 302454],
+            ['2015', 344049, 308153, 353126, 331974, 317626, 292338, 359878, 356467, 341812, 338724, 325585, 289710],
+            ['2016', 338566, 310371, 333568, 310911, 309325, 324005, 330556, 325642, 311872, 296578, 310780, 285929],
+            ['2017', 318697, 289182, 326308, 307859, 310360, 349089, 349208, 340208, 318869, 328970, 193302, null]
+        ];
+
+        function drawChart(typeOfChart) {
+            var data = google.visualization.arrayToDataTable(array);
+
+            var options = {
+                title: 'Number of Checkouts per Month for 10 years',
+                legend: { position: 'top', },
+                crosshair: { trigger: 'both' },
+                animation: {
+                    startup: true,
+                    duration: 1500,
+                    easing: 'out',
+                },
+                hAxis: {
+                    slantedText: true,
+                    slantedTextAngle: 60,
+                    textStyle: {
+                        fontSize: 10 // or the number you want
+                    }
+                },
+                vAxis: {
+                    textStyle: {
+                        fontSize: 10 // or the number you want
+                    }
+                },
+                width: 900,
+                height: 450,
+                chartArea: {
+                    // leave room for y-axis labels
+                    width: '80%'
+                }
+            };
+
+            switch (typeOfChart) {
+                case "Bar":
+                    chart = new google.visualization.BarChart(document.getElementById('curve_chart'));
+                    break;
+                case "Line":
+                    chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+                    break;
+                default:
+                    chart = new google.visualization.ColumnChart(document.getElementById('curve_chart'));
+
+            }
+
+            chart.draw(data, options);
+        }
+
+        $("#typeofchart").selectmenu();
+
+        $("#typeofchart").on("selectmenuselect", function (event, ui) {
+            drawChart(ui.item.value);
+        });
+
+        //By default 'Column'
+        drawChart("Line");
+    </script>
+
+    <style>
+        label {
+            font-family: sans-serif;
+            color: white;
+        }
+    </style>
+
+</head>
+
+<body>
+    <br>
+    <label for="typeofchart">Select type of chart</label>
+    <select name="typeofchart" id="typeofchart">
+            <option>Bar</option>
+            <option>Column</option>
+            <option selected>Line</option>
+        </select>
+    <br><br>
+    <div id="curve_chart" style="width: 900px; height: 450px"></div>
+</body>
+
+</html>

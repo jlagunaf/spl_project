@@ -1,0 +1,193 @@
+<html>
+
+<head>
+    <script type="text/javascript">
+        var map = {};
+
+        map[2007] = [
+            ['Season', 'Number of checkouts'],
+            ['Spring', 896731],
+            ['Summer', 958107],
+            ['Fall', 928301],
+            ['Winter', 929485]
+        ];
+
+        map[2008] = [
+            ['Season', 'Number of checkouts'],
+            ['Spring', 953368],
+            ['Summer', 1098665],
+            ['Fall', 1057746],
+            ['Winter', 1041109]
+        ];
+
+        map[2009] = [
+            ['Season', 'Number of checkouts'],
+            ['Spring', 1119064],
+            ['Summer', 1184942],
+            ['Fall', 1013644],
+            ['Winter', 1021417]
+        ];
+
+        map[2010] = [
+            ['Season', 'Number of checkouts'],
+            ['Spring', 1072707],
+            ['Summer', 1114206],
+            ['Fall', 979727],
+            ['Winter', 1009343]
+        ];
+
+        map[2011] = [
+            ['Season', 'Number of checkouts'],
+            ['Spring', 1024364],
+            ['Summer', 1114230],
+            ['Fall', 930143],
+            ['Winter', 884835]
+        ];
+
+        map[2012] = [
+            ['Season', 'Number of checkouts'],
+            ['Spring', 981114],
+            ['Summer', 1062675],
+            ['Fall', 1009005],
+            ['Winter', 1035728]
+        ];
+
+        map[2013] = [
+            ['Season', 'Number of checkouts'],
+            ['Spring', 1072532],
+            ['Summer', 1175317],
+            ['Fall', 1085698],
+            ['Winter', 1001414]
+        ];
+
+        map[2014] = [
+            ['Season', 'Number of checkouts'],
+            ['Spring', 1048799],
+            ['Summer', 1085942],
+            ['Fall', 1014552],
+            ['Winter', 954643]
+        ];
+
+        map[2015] = [
+            ['Season', 'Number of checkouts'],
+            ['Spring', 1002733],
+            ['Summer', 1008663],
+            ['Fall', 1006123],
+            ['Winter', 938652]
+        ];
+
+        map[2016] = [
+            ['Season', 'Number of checkouts'],
+            ['Spring', 953856],
+            ['Summer', 980229],
+            ['Fall', 919197],
+            ['Winter', 893792]
+        ];
+
+        map[2017] = [
+            ['Season', 'Number of checkouts'],
+            ['Spring', 944532],
+            ['Summer', 1038497],
+            ['Fall', 965159]
+        ];
+
+        function drawChart(typeOfChart, selectedYear) {
+
+            console.log("Draw chart for " + selectedYear);
+
+            var data = google.visualization.arrayToDataTable(map[selectedYear]);
+
+            var options = {
+                title: 'Number of Checkouts per Season for ' + selectedYear,
+                legend: { position: 'top', },
+                crosshair: { trigger: 'both' },
+                animation: {
+                    startup: true,
+                    duration: 1500,
+                    easing: 'out',
+                }, hAxis: {
+                    slantedText: true,
+                    slantedTextAngle: 60,
+                    textStyle: {
+                        fontSize: 10 // or the number you want
+                    }
+                },
+                vAxis: {
+                    textStyle: {
+                        fontSize: 10 // or the number you want
+                    }
+                },
+                width: 900,
+                height: 450,
+                chartArea: {
+                    // leave room for y-axis labels
+                    width: '80%'
+                }
+            };
+
+            switch (typeOfChart) {
+                case "Bar":
+                    chart = new google.visualization.BarChart(document.getElementById('curve_chart'));
+                    break;
+                case "Line":
+                    chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+                    break;
+                default:
+                    chart = new google.visualization.ColumnChart(document.getElementById('curve_chart'));
+
+            }
+
+            chart.draw(data, options);
+        }
+
+        $("#typeofchart").selectmenu();
+
+        $("#typeofchart").on("selectmenuselect", function (event, ui) {
+            drawChart(ui.item.value, $("#year").val());
+        });
+
+        $("#year").selectmenu();
+
+        $("#year").on("selectmenuselect", function (event, ui) {
+            drawChart($("#typeofchart").val(), ui.item.value);
+        });
+
+        drawChart("Line", 2007);
+    </script>
+
+    <style>
+        label {
+            font-family: sans-serif;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <br>
+    <label for="typeofchart">Select type of chart</label>
+    <select name="typeofchart" id="typeofchart">
+            <option>Bar</option>
+            <option>Column</option>
+            <option selected>Line</option>
+        </select>
+
+    <label for="year">Select a year</label>
+    <select name="year" id="year">
+        <option selected>2007</option>
+        <option>2008</option>
+        <option>2009</option>
+        <option>2010</option>
+        <option>2011</option>
+        <option>2012</option>
+        <option>2013</option>
+        <option>2014</option>
+        <option>2015</option>
+        <option>2016</option>
+        <option>2017</option>
+    </select>
+    <br><br>
+    <div id="curve_chart" style="width: 900px; height: 450px"></div>
+</body>
+
+</html>

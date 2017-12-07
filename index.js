@@ -84,6 +84,8 @@ const numRows_2013 = 7864260;
 const numRows_2014 = 7416879;
 const numRows_2015 = 6871626;
 const numRows_2016 = 6404830;
+//const numRows_2017_January = 533558;
+
 
 //                  0           1                  2                3               4       5           6               7           8         9      
 //var fields = ['bibnumber', 'callnumber', 'checkoutdatetime', 'checkoutyear', 'collection', 'id', 'itembarcode', 'itemtitle', 'itemtype', 'subjects'];
@@ -114,7 +116,7 @@ app.get('/sl/t1', function (req, response) {
 
     //Create csv file for current year
 
-    var fileName = "data_" + yearOfData + "_target_dayOfWeek.csv";
+    var fileName = "data_" + yearOfData + "_target_dayOfWeek_1kRows.csv";
 
     var doNextRequest = false;
     writeFlag('0');
@@ -128,7 +130,7 @@ app.get('/sl/t1', function (req, response) {
 
     for (var numPullsCount = 0; numPullsCount < numPulls; numPullsCount++) {
         console.log("NumPull(" + numPullsCount + ') Offset(' + offset + ') Limit(' + limit + ')');
-        pullDataAndSaveIt(yearOfData, limit, offset, fileName, isFirstSegment, numPullsCount);
+        pullDataAndSaveItTargetDayOfWeek(yearOfData, limit, offset, fileName, isFirstSegment, numPullsCount);
 
         isFirstSegment = false;
         offset += limit;
@@ -153,8 +155,8 @@ app.get('/sl/t1', function (req, response) {
 
 });
 
-//Pulls data from Seattle's API
-function pullDataAndSaveIt(year, limit, offset, fileName, isFirstSegment, numPullsCount) {
+//Pulls data from Seattle's API, clean it up and save it
+function pullDataAndSaveItTargetDayOfWeek(year, limit, offset, fileName, isFirstSegment, numPullsCount) {
     //console.log('isFirstSegment(' + isFirstSegment + ') numPullsCount(' + numPullsCount + ')')
 
     // Lets make an http.request to Seattle Library
@@ -215,6 +217,104 @@ function cleanUpDataTargetDay(jsonData) {
     }
 
     return jsonData;
+}
+
+
+//Request data to SPL API, Checkouts per week
+app.get('/sl/t2', function (req, response) {
+    
+        response.send("Generating files for # checkouts per week!");
+    
+        //Starting index of requested rows
+        let offset = 0;
+        //Max Number of rows to be requested at a time
+        let limit = 100000;
+    
+        //for (var yearOfData in maxNumRowsPerYear) {
+        var yearOfData = '2016';
+        let maxNumOfRows = maxNumRowsPerYear[yearOfData];
+        console.log('maxNumOfRows for (' + yearOfData + ') are (' + maxNumOfRows + ')');
+    
+        //Create csv file for current year
+    
+        var fileName = "data_" + yearOfData + "_checkoutsPerWeek.csv";
+    
+        var doNextRequest = false;
+        writeFlag('0');
+    
+        console.log('Creating file (' + fileName + ')');
+    
+        let numPulls = Math.ceil(maxNumOfRows / limit);
+        console.log('NumPulls(' + numPulls + ')');
+    
+        let isFirstSegment = true;
+    
+        for (var numPullsCount = 0; numPullsCount < numPulls; numPullsCount++) {
+            console.log("NumPull(" + numPullsCount + ') Offset(' + offset + ') Limit(' + limit + ')');
+            pullDataAndSaveItCheckoutsPerWeek(yearOfData, limit, offset, fileName, isFirstSegment, numPullsCount);
+    
+            isFirstSegment = false;
+            offset += limit;
+    
+            while (!doNextRequest) {
+                sleep(1000);
+                let flag = readFlag();
+                if (flag === '1') {
+                    doNextRequest = true;
+                    writeFlag('0');
+                }
+            }
+    
+            doNextRequest = false;
+        }
+    
+        console.log('End of file (' + fileName + ') generation!');
+    
+        //}
+    
+    
+    
+    });
+
+function pullDataAndSaveItCheckoutsPerWeek(year, limit, offset, fileName, isFirstSegment, numPullsCount) {
+    //console.log('isFirstSegment(' + isFirstSegment + ') numPullsCount(' + numPullsCount + ')')
+
+    // Lets make an http.request to Seattle Library
+    // For different format change extension .json to .csv, ...
+    var options = {
+        host: 'data.seattle.gov',
+        path: '/resource/5src-czff.json?checkoutyear=' + year + '&$limit=' + limit + '&$offset=' + offset + '&$$app_token=YLBaOvoTUKa2x5BoyYi4hPwWC',
+        method: 'GET',
+        headers: {
+            'X-App-Token': 'YLBaOvoTUKa2x5BoyYi4hPwWC'
+        }
+    };
+
+    //console.log('/resource/5src-czff.json?checkoutyear=' + year + '&$limit=' + limit + '&$offset=' + offset + '&$$app_token=YLBaOvoTUKa2x5BoyYi4hPwWC');
+
+    https.get(options, res => {
+        res.setEncoding("utf8");
+        let body = "";
+
+        res.on("data", data => {
+            body += data;
+        });
+
+        res.on("end", () => {
+            body = JSON.parse(body);
+
+            body = cleanUpDataTargetDay(body);
+
+            if (isFirstSegment) {
+                writeFirstSegment(body, fields, fileSystem, fileName);
+            } else {
+                writeNewSegment(body, fields, fileSystem, fileName);
+            }
+
+            //Indicate continue with next request
+            writeFlag('1');
+        });
+    });
 }
 
 //First segment will include headers

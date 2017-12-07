@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<!--PLAYING WITH RESPONSIVENESS-->
+
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<head>
+
+    <title>SenseMakers</title>
+    <link rel="stylesheet" href="jquery-ui/jquery-ui.min.css">
+    <script src="jquery/jquery-3.2.1.min.js"></script>
+    <script src="jquery-ui/jquery-ui.min.js"></script>
+    <!--Google charts-->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+    <script>
+        google.charts.load('current', { 'packages': ['corechart'] });
+
+        $(function () {
+            var $menuBar = $("#menu").menu();
+
+            $menuBar.on("menuselect", function (event, ui) {
+
+                var option = ui.item.children().attr('name');
+
+                if (option) {
+                    console.log("Process [" + option + "]");
+
+                    var text;
+                    switch (option) {
+                        case "S_10Y":
+                            console.log("Load Seasonal 10 Year Graph!");
+                            cleanContent();
+                            $("#content").load("chart_season_10year.html");
+                            break;
+                        case "S_SY":
+                            console.log("Load Seasonal Specific Year!");
+                            cleanContent();
+                            $("#content").load("chart_season_per_year.html");
+                            break;
+                        case "M_10Y":
+                            cleanContent();
+                            $("#content").load("chart_monthly_10year.html");
+                            break;
+                        case "M_SY":
+                            cleanContent();
+                            $("#content").load("chart_monthly_per_year.html");
+                            break;
+                        case "W_10Y":
+                            cleanContent();
+                            $("#content").load("chart_weekly_10year.html");
+                            break;
+                        case "W_SY":
+                            cleanContent();
+                            $("#content").load("chart_weekly_per_year.html");
+                            break;
+                        case "PBS":
+                            cleanContent();
+                            $("#content").load("chart_season_prediction.html");
+                            break;
+                        case "PBM":
+                            cleanContent();
+                            $("#content").load("chart_monthly_prediction.html");
+                            break;
+                        case "PBW":
+                            cleanContent();
+                            $("#content").load("chart_weekly_prediction.html");
+                            break;
+                        default:
+                            alert("This option cannot be processed yet!");
+                    }
+
+                }
+
+            });
+
+
+            function cleanContent() {
+                //Remove current trend
+                $("#content").remove();
+                $("#trendZone").append("<div id='content' align='center'></div>");
+            }
+
+
+        });
+    </script>
+    <style>
+        body {
+            margin: 0;
+            padding-left: 20px;
+            padding-right: 20px;
+            background-color: #EAEAEA;
+        }
+
+        .ui-menu {
+            width: 100%;
+            background-color: #AB1005;
+            color: white;
+            border: none;
+            font-family: sans-serif;
+            font-size: 12px;
+        }
+        /*Title panel*/
+
+        div.relative {
+            position: relative;
+            width: 100%;
+            height: 100px;
+            background-color: rgb(254, 166, 1);
+            /*#2196F3;*/
+            margin: 0px;
+            padding: 0px;
+            /**border: 1px dotted green;*/
+            border-top: 3px solid white;
+            border-right: 3px solid white;
+            border-left: 3px solid white;
+        }
+        /*Logo*/
+
+        img.absolute {
+            position: relative;
+            top: 0px;
+            left: 300px;
+            right: 0px;
+            float: left;
+            /*width: 110px;
+            height: 100px;*/
+            max-width: 110px;
+            height: fit-content;
+            max-height: 100px;
+
+
+            /*For centering vertically*/
+            margin: 0;
+            position: absolute;
+            top: 20%;
+            left: 20%;
+            transform: translate(0%, -20%);
+        }
+        /*Big Title*/
+
+        div.absolute {
+            float: left;
+            /*left: 350px;*/
+            font-size: 20px;
+            font-family: sans-serif;
+            color: white;
+            /*border: 1px solid burlywood;*/
+            /*For centering vertically*/
+            margin: 0;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        /*Work area*/
+
+        div.relativeContent {
+            position: relative;
+            float: left;
+            width: 100%;
+            height: 580px;
+            background-color: #2196F3;
+            margin: 0px;
+            padding-top: 0px;
+            border: 3px solid white;
+        }
+        /*Menu*/
+
+        div.absoluteMenu {
+            position: relative;
+            float: left;
+            width: 13%;
+            height: 100%;
+            background-color: #AB1005;
+            margin: 0px;
+            padding: 0px;
+        }
+        /*Zone for showing other html content*/
+
+        div.absoluteTrendZone {
+            position: relative;
+            float: left;
+            width: 87%;
+            height: 100%;
+            padding-top: 5px;
+            /*background-color: grey;*/
+        }
+        /*Additional wrapper for html content substitution purposes*/
+
+        #content {
+            /*border: 1px solid black;*/
+            /*For centering vertically*/
+            /*margin: 0;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100%;
+            transform: translate(-50%, -50%);*/
+            background-color: transparent;
+            overflow-y: hidden;
+            overflow-x: hidden;
+            position: relative;
+            height: 100%;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="relative" align="center">
+        <img class="absolute" src="IMG_2627.jpg">
+        <div class="absolute" align="center">SEATTLE PUBLIC LIBRARY<br>Book Checkout Data</div>
+    </div>
+
+    <div class='relativeContent'>
+        <div class="absoluteMenu">
+            <div id='menuZone'>
+                <ul id="menu" style="border:none;">
+                    <li>
+                        <div>Seasonal Trends</div>
+                        <ul>
+                            <li>
+                                <div name="S_10Y">10 Years</div>
+                            </li>
+                            <li>
+                                <div name="S_SY">Specific year</div>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <div>Monthly Trends</div>
+                        <ul>
+                            <li>
+                                <div name="M_10Y">10 Years</div>
+                            </li>
+                            <li>
+                                <div name="M_SY">Specific year</div>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <div>Weekly Trends</div>
+                        <ul>
+                            <li>
+                                <div name="W_10Y">10 Years</div>
+                            </li>
+                            <li>
+                                <div name="W_SY">Specific year</div>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <div>Predictions</div>
+                        <ul>
+                            <li>
+                                <div name="PBS">By season</div>
+                            </li>
+                            <li>
+                                <div name="PBM">By month</div>
+                            </li>
+                            <li>
+                                <div name="PBW">By week</div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div id='trendZone' class="absoluteTrendZone">
+
+            <div id='content' align="center">
+                <object type="text/html" data="https://data.seattle.gov/dataset/Checkouts-by-Title-Physical-Items-/3h5r-qv5w" style="width:900px; height:500px; margin:1%;">
+                </object>
+
+            </div>
+        </div>
+
+    </div>
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,289 @@
+<html>
+
+<head>
+    <script type="text/javascript">
+        google.charts.load('current', { 'packages': ['corechart'] });
+
+        var map = {};
+
+        map[2007] = [
+            ['2007', 'Number of checkouts'],
+            ['January', 294166],
+            ['February', 273075],
+            ['March', 308111],
+            ['April', 292899],
+            ['May', 295721],
+            ['June', 315847],
+            ['July', 318036],
+            ['August', 324224],
+            ['September', 298025],
+            ['October', 320304],
+            ['November', 309972],
+            ['December', 274179]
+        ];
+
+        map[2008] = [
+            ['2008', 'Number of checkouts'],
+            ['January', 341559],
+            ['February', 313747],
+            ['March', 289487],
+            ['April', 338702],
+            ['May', 325179],
+            ['June', 353583],
+            ['July', 385262],
+            ['August', 359820],
+            ['September', 350203],
+            ['October', 351231],
+            ['November', 356312],
+            ['December', 305958]
+        ];
+
+        map[2009] = [
+            ['2009', 'Number of checkouts'],
+            ['January', 385566],
+            ['February', 349585],
+            ['March', 395793],
+            ['April', 367085],
+            ['May', 356186],
+            ['June', 387045],
+            ['July', 400407],
+            ['August', 397490],
+            ['September', 288711],
+            ['October', 374218],
+            ['November', 350719],
+            ['December', 323127]
+        ];
+
+        map[2010] = [
+            ['2010', 'Number of checkouts'],
+            ['January', 370439],
+            ['February', 327847],
+            ['March', 376936],
+            ['April', 350077],
+            ['May', 345694],
+            ['June', 376721],
+            ['July', 373516],
+            ['August', 363969],
+            ['September', 294002],
+            ['October', 353042],
+            ['November', 332683],
+            ['December', 320976]
+        ];
+
+        map[2011] = [
+            ['2011', 'Number of checkouts'],
+            ['January', 356691],
+            ['February', 331676],
+            ['March', 332980],
+            ['April', 353201],
+            ['May', 338183],
+            ['June', 380082],
+            ['July', 375859],
+            ['August', 358289],
+            ['September', 284448],
+            ['October', 333975],
+            ['November', 311720],
+            ['December', 295185]
+        ];
+
+        map[2012] = [
+            ['2012', 'Number of checkouts'],
+            ['January', 290733],
+            ['February', 298917],
+            ['March', 333086],
+            ['April', 320010],
+            ['May', 328018],
+            ['June', 361956],
+            ['July', 386349],
+            ['August', 314370],
+            ['September', 298742],
+            ['October', 364624],
+            ['November', 345639],
+            ['December', 314308]
+        ];
+
+        map[2013] = [
+            ['2013', 'Number of checkouts'],
+            ['January', 379984],
+            ['February', 341436],
+            ['March', 371844],
+            ['April', 355593],
+            ['May', 345095],
+            ['June', 389107],
+            ['July', 399869],
+            ['August', 386341],
+            ['September', 363621],
+            ['October', 364437],
+            ['November', 357640],
+            ['December', 314639]
+        ];
+
+        map[2014] = [
+            ['2014', 'Number of checkouts'],
+            ['January', 367174],
+            ['February', 319643],
+            ['March', 375521],
+            ['April', 336589],
+            ['May', 336672],
+            ['June', 357650],
+            ['July', 370883],
+            ['August', 357390],
+            ['September', 332770],
+            ['October', 345405],
+            ['November', 336426],
+            ['December', 302454]
+        ];
+
+        map[2015] = [
+            ['2015', 'Number of checkouts'],
+            ['January', 344049],
+            ['February', 308153],
+            ['March', 353126],
+            ['April', 331974],
+            ['May', 317626],
+            ['June', 292338],
+            ['July', 359878],
+            ['August', 356467],
+            ['September', 341812],
+            ['October', 338724],
+            ['November', 325585],
+            ['December', 289710]
+        ];
+
+        map[2016] = [
+            ['2016', 'Number of checkouts'],
+            ['January', 338566],
+            ['February', 310371],
+            ['March', 333568],
+            ['April', 310911],
+            ['May', 309325],
+            ['June', 324005],
+            ['July', 330556],
+            ['August', 325642],
+            ['September', 311872],
+            ['October', 296578],
+            ['November', 310780],
+            ['December', 285929]
+        ];
+
+        map[2017] = [
+            ['2017', 'Number of checkouts'],
+            ['January', 318697],
+            ['February', 289182],
+            ['March', 326308],
+            ['April', 307859],
+            ['May', 310360],
+            ['June', 349089],
+            ['July', 349208],
+            ['August', 340208],
+            ['September', 318869],
+            ['October', 328970],
+            ['November', 193302],
+            ['December', null]
+        ];
+
+        function drawChart(typeOfChart, selectedYear) {
+            var data = google.visualization.arrayToDataTable(map[selectedYear]);
+
+            var options = {
+                title: 'Number of Checkouts per Month for ' + selectedYear,
+                legend: { position: 'top', },
+                crosshair: { trigger: 'both' },
+                animation: {
+                    startup: true,
+                    duration: 1500,
+                    easing: 'out',
+                }, hAxis: {
+                    slantedText: true,
+                    slantedTextAngle: 60,
+                    textStyle: {
+                        fontSize: 10 // or the number you want
+                    }
+                },
+                vAxis: {
+                    textStyle: {
+                        fontSize: 10 // or the number you want
+                    }
+                },
+                width: 900,
+                height: 450,
+                chartArea: {
+                    // leave room for y-axis labels
+                    width: '80%'
+                }
+            };
+
+            //By default 'Column'
+            var chart = "Column";
+
+            switch (typeOfChart) {
+                case "Bar":
+                    chart = new google.visualization.BarChart(document.getElementById('curve_chart'));
+                    break;
+                case "Line":
+                    chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+                    break;
+                default:
+                    chart = new google.visualization.ColumnChart(document.getElementById('curve_chart'));
+
+            }
+
+            chart.draw(data, options);
+        }
+
+        $("#typeofchart").selectmenu();
+
+        $("#typeofchart").on("selectmenuselect", function (event, ui) {
+            drawChart(ui.item.value, $("#year").val());
+        });
+
+        $("#year").selectmenu();
+
+        $("#year").on("selectmenuselect", function (event, ui) {
+            drawChart($("#typeofchart").val(), ui.item.value);
+        });
+
+        drawChart("Column", 2007);
+    </script>
+
+    <style>
+        label {
+            font-family: sans-serif;
+            color: white;
+        }
+
+        #year {
+            float: left;
+        }
+    </style>
+
+</head>
+
+<body>
+    <br>
+    <label for="typeofchart">Select type of chart</label>
+    <select name="typeofchart" id="typeofchart">
+            <option>Bar</option>
+            <option selected>Column</option>
+            <option>Line</option>
+        </select>
+
+    <label for="year">Select a year</label>
+    <select name="year" id="year">
+        <option selected>2007</option>
+        <option>2008</option>
+        <option>2009</option>
+        <option>2010</option>
+        <option>2011</option>
+        <option>2012</option>
+        <option>2013</option>
+        <option>2014</option>
+        <option>2015</option>
+        <option>2016</option>
+        <option>2017</option>
+    </select>
+    <br><br>
+    <div id="curve_chart" style="width: 900px; height: 450px"></div>
+</body>
+
+</html>

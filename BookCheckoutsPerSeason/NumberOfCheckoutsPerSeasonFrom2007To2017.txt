@@ -1,0 +1,65 @@
+
+2007
+Spring = 1,761,238
+Summer = 1,841,397
+Fall = 1,827,210
+Winter = 1,903,522 (Feb29)
+
+2008
+Spring = 1,963,395
+Summer = 2,243,014
+Fall = 2,169,172
+Winter = 2,205,966 (Feb28)
+
+2009
+Spring = 2,328,277
+Summer = 2,395,300
+Fall = 2,073,403
+Winter = 2,156,780 (Feb28)
+
+2010
+Spring = 2,203,448
+Summer = 2,184,969
+Fall = 1,920,723
+Winter = 2,036,130 (Feb28)
+
+2011
+Spring = 2,002,304
+Summer = 2,082,735
+Fall = 1,744,780
+Winter = 1,707,489 (Feb29)
+
+2012
+Spring = 1,842,407
+Summer = 1,915,882
+Fall = 1,820,021
+Winter = 1,925,528 (Feb28)
+
+2013
+Spring = 1,959,622
+Summer = 2,061,972
+Fall = 1,922,635
+Winter = 1,840,910 (Feb28)
+
+2014
+Spring = 1,899,832
+Summer = 1,910,998
+Fall = 1,790,633
+Winter = 1,731,227 (Feb28)
+
+2015
+Spring = 1,766,652
+Summer = 1,707,617
+Fall = 1,709,858
+Winter = 1,639,291 (Feb29)
+
+2016
+Spring = 1,633,028
+Summer = 1,608,107
+Fall = 1,533,834
+Winter = 1,512,144 (Feb28)
+
+2017
+Spring = 1,563,099
+Summer = 1,647,286
+Fall = 1,519,968

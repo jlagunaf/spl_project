@@ -1,0 +1,302 @@
+<html>
+
+<head>
+    <script type="text/javascript">
+        google.charts.load('current', { 'packages': ['corechart', 'table'] });
+        google.charts.setOnLoadCallback(drawChart);
+
+        var array = [
+            ['Month & Year', 'Actual # of Checkouts'],
+            ['January 2007', 294166],
+            ['February 2007', 273075],
+            ['March 2007', 308111],
+            ['April 2007', 292899],
+            ['May 2007', 295721],
+            ['June 2007', 315847],
+            ['July 2007', 318036],
+            ['August 2007', 324224],
+            ['September 2007', 298025],
+            ['October 2007', 320304],
+            ['November 2007', 309972],
+            ['December 2007', 274179],
+            ['January 2008', 341559],
+            ['February 2008', 313747],
+            ['March 2008', 289487],
+            ['April 2008', 338702],
+            ['May 2008', 325179],
+            ['June 2008', 353583],
+            ['July 2008', 385262],
+            ['August 2008', 359820],
+            ['September 2008', 350203],
+            ['October 2008', 351231],
+            ['November 2008', 356312],
+            ['December 2008', 305958],
+            ['January 2009', 385566],
+            ['February 2009', 349585],
+            ['March 2009', 395793],
+            ['April 2009', 367085],
+            ['May 2009', 356186],
+            ['June 2009', 387045],
+            ['July 2009', 400407],
+            ['August 2009', 397490],
+            ['September 2009', 288711],
+            ['October 2009', 374218],
+            ['November 2009', 350719],
+            ['December 2009', 323127],
+            ['January 2010', 370439],
+            ['February 2010', 327847],
+            ['March 2010', 376936],
+            ['April 2010', 350077],
+            ['May 2010', 345694],
+            ['June 2010', 376721],
+            ['July 2010', 373516],
+            ['August 2010', 363969],
+            ['September 2010', 294002],
+            ['October 2010', 353042],
+            ['November 2010', 332683],
+            ['December 2010', 320976],
+            ['January 2011', 356691],
+            ['February 2011', 331676],
+            ['March 2011', 332980],
+            ['April 2011', 353201],
+            ['May 2011', 338183],
+            ['June 2011', 380082],
+            ['July 2011', 375859],
+            ['August 2011', 358289],
+            ['September 2011', 284448],
+            ['October 2011', 333975],
+            ['November 2011', 311720],
+            ['December 2011', 295185],
+            ['January 2012', 290733],
+            ['February 2012', 298917],
+            ['March 2012', 333086],
+            ['April 2012', 320010],
+            ['May 2012', 328018],
+            ['June 2012', 361956],
+            ['July 2012', 386349],
+            ['August 2012', 314370],
+            ['September 2012', 298742],
+            ['October 2012', 364624],
+            ['November 2012', 345639],
+            ['December 2012', 314308],
+            ['January 2013', 379984],
+            ['February 2013', 341436],
+            ['March 2013', 371844],
+            ['April 2013', 355593],
+            ['May 2013', 345095],
+            ['June 2013', 389107],
+            ['July 2013', 399869],
+            ['August 2013', 386341],
+            ['September 2013', 363621],
+            ['October 2013', 364437],
+            ['November 2013', 357640],
+            ['December 2013', 314639],
+            ['January 2014', 367174],
+            ['February 2014', 319643],
+            ['March 2014', 375521],
+            ['April 2014', 336589],
+            ['May 2014', 336672],
+            ['June 2014', 357650],
+            ['July 2014', 370883],
+            ['August 2014', 357390],
+            ['September 2014', 332770],
+            ['October 2014', 345405],
+            ['November 2014', 336426],
+            ['December 2014', 302454],
+            ['January 2015', 344049],
+            ['February 2015', 308153],
+            ['March 2015', 353126],
+            ['April 2015', 331974],
+            ['May 2015', 317626],
+            ['June 2015', 292338],
+            ['July 2015', 359878],
+            ['August 2015', 356467],
+            ['September 2015', 341812],
+            ['October 2015', 338724],
+            ['November 2015', 325585],
+            ['December 2015', 289710],
+            ['January 2016', 338566],
+            ['February 2016', 310371],
+            ['March 2016', 333568],
+            ['April 2016', 310911],
+            ['May 2016', 309325],
+            ['June 2016', 324005],
+            ['July 2016', 330556],
+            ['August 2016', 325642],
+            ['September 2016', 311872],
+            ['October 2016', 296578],
+            ['November 2016', 310780],
+            ['December 2016', 285929],
+            ['January 2017', 318697],
+            ['February 2017', 289182],
+            ['March 2017', 326308],
+            ['April 2017', 307859],
+            ['May 2017', 310360],
+            ['June 2017', 349089],
+            ['July 2017', 349208],
+            ['August 2017', 340208],
+            ['September 2017', 318869],
+            ['October 2017', 328970],
+            ['November 2017', 193302],
+            ['December 2017', null],
+            ['January 2018', null],
+            ['February 2018', null],
+            ['March 2018', null],
+            ['April 2018', null],
+            ['May 2018', null]
+        ];
+
+        var array_table = [
+            ['Month & Year', 'Actual # of Checkouts', 'Predicted # of Checkouts', 'Difference', '% Difference'],
+            ['July 2017', 349208, 350307, 0.314712148633479, '0.31%'],
+            ['August 2017', 340208, 333263, 2.04139820345201, '2.04%'],
+            ['September 2017', 318869, 301213, 5.53707008207132, '5.54%'],
+            ['October 2017', 328970, 325886, 0.937471501960665, '0.94%'],
+            ['November 2017', 193302, 314135, 62.5099585105172, '62.51%'],
+            ['December 2017', null, 283174, null, null],
+            ['January 2018', null, 329686, null, null],
+            ['February 2018', null, 300034, null, null],
+            ['March 2018', null, 329445, null, null],
+            ['April 2018', null, 317270, null, null],
+            ['May 2018', null, 312916, null, null]
+
+        ];
+
+        var data;
+        var chart;
+        var options = {
+            title: 'Monthly Predictive Model',
+            legend: { position: 'top', },
+            crosshair: { trigger: 'both' },
+            animation: {
+                startup: true,
+                duration: 1500,
+                easing: 'out',
+            },
+            hAxis: {
+                slantedText: true,
+                slantedTextAngle: 60,
+                textStyle: {
+                    fontSize: 8 // or the number you want
+                }
+            },
+            vAxis: {
+                textStyle: {
+                    fontSize: 10 // or the number you want
+                }
+            },
+            width: 900,
+            height: 350,
+            chartArea: {
+                // leave room for y-axis labels
+                width: '80%'
+            }
+        };
+
+        function drawChart() {
+            data = google.visualization.arrayToDataTable(array);
+
+            chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+
+            chart.draw(data, options);
+
+
+            var data_for_table = new google.visualization.arrayToDataTable(array_table);
+
+            var table = new google.visualization.Table(document.getElementById('table_div'));
+
+            var cssClassNames = {
+                'headerRow': 'medium-font',
+                'tableRow': 'medium-font',
+                'oddTableRow': 'medium-font',
+            };
+
+            var options_table = {
+                showRowNumber: false,
+                width: '100%',
+                height: '100%',
+                alternatingRowStyle: true,
+                cssClassNames: cssClassNames
+            }
+
+            table.draw(data_for_table, options_table);
+
+        }
+
+        //Show and Hide prediction
+
+        var buttonAdd = $("#see_pred").button();
+
+        buttonAdd.click(function (event) {
+            //Add prediction
+            data.addColumn('number', 'Prediction');
+            data.setCell(126, 2, 350307);
+            data.setCell(127, 2, 333263);
+            data.setCell(128, 2, 301213);
+            data.setCell(129, 2, 325886);
+            data.setCell(130, 2, 314135);
+            data.setCell(131, 2, 283174);
+            data.setCell(132, 2, 329686);
+            data.setCell(133, 2, 300034);
+            data.setCell(134, 2, 329445);
+            data.setCell(135, 2, 317270);
+            data.setCell(136, 2, 312916);
+
+            chart.draw(data, options);
+
+            buttonAdd.button("option", "disabled", true);
+
+            //Visualize table
+
+            $("#table_div").show();
+            buttonRemove.button("enable");
+            buttonAdd.button("disable");
+        });
+
+        var buttonRemove = $("#remove_pred").button();
+
+        buttonRemove.click(function (event) {
+            //Remove prediction
+            data.removeColumn(2);
+
+            chart.draw(data, options);
+
+            buttonRemove.button("option", "disabled", true);
+
+            //Visualize table
+
+            $("#table_div").hide();
+            buttonRemove.button("disable");
+            buttonAdd.button("enable");
+        });
+
+        //Do not show initially
+        $("#table_div").hide();
+        buttonRemove.button("disable");
+    </script>
+
+    <style>
+        .medium-font {
+            font-size: 12px;
+        }
+
+        #see_pred {
+            font-size: 10px;
+        }
+
+        #remove_pred {
+            font-size: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="curve_chart" style="width: 900px; height: 300px;margin: 10px"></div>
+    <br><br><br>
+    <button id="see_pred">See prediction</button>
+    <button id="remove_pred">Remove prediction</button>
+    <br><br>
+    <div id="table_div" style="width: 700px; height: 150px; visibility: visible;"></div>
+</body>
+
+</html>

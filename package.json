@@ -2,7 +2,7 @@
   "name": "seattle_library",
   "version": "1.0.0",
   "description": "SeattleLibrary queries",
-  "main": "index.js",
+  "main": "indexTrends.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -10,6 +10,7 @@
   "license": "MIT",
   "dependencies": {
     "current-week-number": "^1.0.7",
-    "json2csv": "^3.11.5"
+    "json2csv": "^3.11.5",
+    "leap-year": "^2.0.1"
   }
 }

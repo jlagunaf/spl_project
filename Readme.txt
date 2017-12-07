@@ -1,0 +1,1 @@
+These files contain the code used to query Seattle Public Library (Book Checkouts Info) -API, clean up the data, and aggregate it by season, month and week. These aggregations were used to generate predictive models.

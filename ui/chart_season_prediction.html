@@ -1,0 +1,209 @@
+<html>
+
+<head>
+    <script type="text/javascript">
+        google.charts.load('current', { 'packages': ['corechart', 'table'] });
+        google.charts.setOnLoadCallback(drawChart);
+
+        var array = [
+            ['Season', 'Actual Number of Checkouts'],
+            ['Spring 2007', 896731],
+            ['Summer 2007', 958107],
+            ['Fall 2007', 928301],
+            ['Winter 2007', 929485],
+            ['Spring 2008', 953368],
+            ['Summer 2008', 1098665],
+            ['Fall 2008', 1057746],
+            ['Winter 2008', 1041109],
+            ['Spring 2009', 1119064],
+            ['Summer 2009', 1184942],
+            ['Fall 2009', 1013644],
+            ['Winter 2009', 1021417],
+            ['Spring 2010', 1072707],
+            ['Summer 2010', 1114206],
+            ['Fall 2010', 979727],
+            ['Winter 2010', 1009343],
+            ['Spring 2011', 1024364],
+            ['Summer 2011', 1114230],
+            ['Fall 2011', 930143],
+            ['Winter 2011', 884835],
+            ['Spring 2012', 981114],
+            ['Summer 2012', 1062675],
+            ['Fall 2012', 1009005],
+            ['Winter 2012', 1035728],
+            ['Spring 2013', 1072532],
+            ['Summer 2013', 1175317],
+            ['Fall 2013', 1085698],
+            ['Winter 2013', 1001414],
+            ['Spring 2014', 1048799],
+            ['Summer 2014', 1085942],
+            ['Fall 2014', 1014552],
+            ['Winter 2014', 954643],
+            ['Spring 2015', 1002733],
+            ['Summer 2015', 1008663],
+            ['Fall 2015', 1006123],
+            ['Winter 2015', 938652],
+            ['Spring 2016', 953856],
+            ['Summer 2016', 980229],
+            ['Fall 2016', 919197],
+            ['Winter 2016', 893792],
+            ['Spring 2017', 944532],
+            ['Summer 2017', 1038497],
+            ['Fall 2017', 965159],
+            ['Winter 2017', null],
+            ['Spring 2018', null],
+            ['Summer 2018', null],
+            ['Fall 2018', null]
+        ];
+
+        var array_table = [
+            ['Season & Year', 'Actual # of Checkouts', 'Predicted # of Checkouts', 'Difference', '% Difference'],
+            ['Spring-2017', 944532, 931713, 12819, '1.36%'],
+            ['Summer-2017', 1038497, 993043, 45454, '2.36%'],
+            ['Fall-2017', 965159, 918681, 46478, '3.36%'],
+            ['Winter-2017', null, 897595, null, null],
+            ['Spring-2018', null, 935276, null, null],
+            ['Summer-2018', null, 996840, null, null],
+            ['Fall-2018', null, 922194, null, null]
+
+        ];
+
+        var data;
+        var chart;
+        var options = {
+            title: 'Seasonal Predictive Model',
+            legend: { position: 'top', },
+            crosshair: { trigger: 'both' },
+            animation: {
+                startup: true,
+                duration: 1500,
+                easing: 'out',
+            },
+            hAxis: {
+                slantedText: true,
+                slantedTextAngle: 60,
+                textStyle: {
+                    fontSize: 8 // or the number you want
+                }
+            },
+            vAxis: {
+                textStyle: {
+                    fontSize: 10 // or the number you want
+                }
+            },
+            width: 900,
+            height: 350,
+            chartArea: {
+                // leave room for y-axis labels
+                width: '80%'
+            }
+        };
+
+        function drawChart() {
+            data = google.visualization.arrayToDataTable(array);
+
+            chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+
+            chart.draw(data, options);
+
+            var data_for_table = new google.visualization.arrayToDataTable(array_table);
+
+            var table = new google.visualization.Table(document.getElementById('table_div'));
+
+            var cssClassNames = {
+                'headerRow': 'medium-font',
+                'tableRow': 'medium-font',
+                'oddTableRow': 'medium-font',
+            };
+
+            var options_table = {
+                showRowNumber: false,
+                width: '100%',
+                height: '100%',
+                alternatingRowStyle: true,
+                cssClassNames: cssClassNames
+            }
+
+            table.draw(data_for_table, options_table);
+
+        }
+
+        //Show and Hide prediction
+
+        var buttonAdd = $("#see_pred").button();
+
+        buttonAdd.click(function (event) {
+            //Add prediction
+            data.addColumn('number', 'Prediction');
+            data.setCell(40, 2, 931713);
+            data.setCell(41, 2, 993043);
+            data.setCell(42, 2, 918681);
+            data.setCell(43, 2, 897595);
+            data.setCell(44, 2, 935276);
+            data.setCell(45, 2, 996840);
+            data.setCell(46, 2, 922194);
+
+            chart.draw(data, options);
+
+            buttonAdd.button("option", "disabled", true);
+
+            //Visualize table
+
+            $("#table_div").show();
+            buttonRemove.button("enable");
+            buttonAdd.button("disable");
+
+        });
+
+        var buttonRemove = $("#remove_pred").button();
+
+        buttonRemove.click(function (event) {
+            //Remove prediction
+            data.removeColumn(2);
+
+            chart.draw(data, options);
+
+            buttonRemove.button("option", "disabled", true);
+
+            //Visualize table
+
+            $("#table_div").hide();
+            buttonRemove.button("disable");
+            buttonAdd.button("enable");
+            
+
+
+        });
+
+        //Do not show initially
+        $("#table_div").hide();
+        buttonRemove.button("disable");
+
+    </script>
+
+    <style>
+        .medium-font {
+            font-size: 12px;
+        }
+
+        #see_pred {
+            font-size: 10px;
+        }
+
+        #remove_pred {
+            font-size: 10px;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div id="curve_chart" style="width: 900px; height: 300px;margin: 10px"></div>
+    <br><br><br>
+    <button id="see_pred">See prediction</button>
+    <button id="remove_pred">Remove prediction</button>
+    <br><br>
+    <div id="table_div" style="width: 700px; height: 150px; visibility: visible;"></div>
+</body>
+
+</html>
